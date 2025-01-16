@@ -19,34 +19,34 @@ public class ApplicationHooks {
 	private WebDriver driver;
 	ConfigReader configReader;
 	Properties prop;
-	
+
 	@Before(order = 0)
 	public void getProperty() {
 		configReader = new ConfigReader();
 		prop = configReader.init_properties();
-		
+
 	}
-	
-	@Before(order =1)
+
+	@Before(order = 1)
 	public void launchBrowser() {
 		driverfactory = new DriverFactory();
 		driver = driverfactory.init_driver(prop.getProperty("browser"));
-		
+
 	}
-	
+
 	@After(order = 0)
 	public void quitBrowser() {
-		driver.quit(); 
+		driver.quit();
 	}
-	
+
 	@After(order = 1)
 	public void tearDown(Scenario scenario) {
-		if(scenario.isFailed()) {
+		if (scenario.isFailed()) {
 			String screenShotName = scenario.getName().replaceAll(" ", "_");
-			byte[] sourcePth = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-			
+			byte[] sourcePth = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+
 			scenario.attach(sourcePth, "image/png", screenShotName);
 		}
 	}
-	
+
 }
