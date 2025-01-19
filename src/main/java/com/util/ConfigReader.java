@@ -13,7 +13,7 @@ public class ConfigReader {
 		prop = new Properties();
 		
 		try {
-			FileInputStream fis = new FileInputStream("./src/test/resource/com/config/config.properties");
+			FileInputStream fis = new FileInputStream("./src/test/resources/com/config/config.properties");
 			try {
 				prop.load(fis);
 			} catch (IOException e) {
